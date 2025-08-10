@@ -1,0 +1,5 @@
+1.Ctrl+P : helps to quickly navigate through files in a project,if we know the name of the file we are looking for.
+2.Ctrl+F : helps to quickly open find menu,which we can find anything we coded in a file and go to the position,usefull if we know the things we want to look for or even the idea of about.
+3.Ctrl+H: helps to quickly open find and replace menu,which we can find anything we coded in a file and go to the position and can replace it with what we wantc.
+4.Ctrl+` :helps to shows or hide terminal,usefull in webprojects,as terminal is not needed in designing and console might be needed in js scripting.
+5.Ctrl +K+C ,Ctrl +K+U:to comment and uncomment selected portion.
