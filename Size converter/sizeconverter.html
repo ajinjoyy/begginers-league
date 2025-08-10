@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SizeConverter</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        background-color: #122d48;
+        color: white;
+    }
+    h1 {
+        margin: 20px 0 10px 0;
+        color: white;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        max-width: 400px;
+    }
+    label {
+        margin-bottom: 5px;
+    }
+    input, select, button {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background-color: #122d48;
+        color: white;
+    }
+    button {
+        background-color: white;
+        color: black;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+    <h1>Size Converter</h1>
+    <form id="converterForm">
+        <label for="gender" >GENDER</label>
+        <select id="gender">
+            <option value="men">MEN</option>
+            <option value="women">WOMEN</option>
+        </select>
+        <label for="store" >Store</label>
+        <select id="store">
+            <option value="hm">H&M</option>
+            <option value="zara">ZARA</option>
+        </select>
+        <label for="size">CHEST SIZE</label>
+        <input type="number" id="size" placeholder="Enter size in cm" required>
+        <button type="submit">Convert</button>
+    </form>
+    <div id="result"></div>
+    
+</body>
+<script>
+    const sizeCharts = {
+  men: {
+    hm: { chest: { S: [36, 38], M: [39, 41], L: [42, 44], XL: [45, 47] } },
+    zara: { chest: { S: [37, 38], M: [39, 40], L: [41, 42], XL: [43, 44] } }
+  },
+  women: {
+    hm: { chest: { S: [32, 34], M: [35, 37], L: [38, 40], XL: [41, 43] } },
+    zara: { chest: { S: [33, 34], M: [35, 36], L: [37, 38], XL: [39, 40] } }
+  }
+};
+
+document.getElementById('converterForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  convertSize();
+});
+
+function convertSize() {
+  const gender = document.getElementById("gender").value.toLowerCase();
+  const store = document.getElementById("store").value.toLowerCase();
+  const size = parseFloat(document.getElementById("size").value);
+  const resultDiv = document.getElementById("result");
+
+  console.log(gender, store, size); 
+
+  if (isNaN(size)) {
+    resultDiv.textContent = "Enter a valid number";
+    return;
+  }
+
+  const chart = sizeCharts[gender]?.[store]?.chest;
+  if (!chart) {
+    resultDiv.textContent = "No data for this selection";
+    return;
+  }
+
+  let foundSize = "Not found";
+  for (let label in chart) {
+    const [min, max] = chart[label];
+    if (size >= min && size <= max) {
+      foundSize = label;
+      break;
+    }
+  }
+  resultDiv.textContent = `${store.toUpperCase()} size: ${foundSize}`;
+}
+
+</script>
+</html>
